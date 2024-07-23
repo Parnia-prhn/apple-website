@@ -3,7 +3,11 @@ import gsap from "gsap";
 import { rightImg, watchImg } from "../utils";
 import { VideoCarousel } from "./VideoCarousel";
 
+import { useEffect } from "react";
 const Highlights = () => {
+  useEffect(() => {
+    console.log("Highlights component rendered");
+  }, []);
   useGSAP(() => {
     gsap.to("#title", {
       opacity: 1,
