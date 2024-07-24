@@ -1,11 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import ModelView from "./ModelView";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { ModelView } from "./ModelView";
 import { yellowImg } from "../utils";
-
 import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
 import { View } from "@react-three/drei";
 import { models, sizes } from "../constants";
 import { animateWithGsapTimeLine } from "../utils/animation";
@@ -13,20 +11,18 @@ import { animateWithGsapTimeLine } from "../utils/animation";
 export const Model = () => {
   const [size, setSize] = useState("small");
   const [model, setModel] = useState({
-    title: "iPhone 15 Pro in Natural Titanium",
-    color: ["#8F8A81", "#FFE7B9", "#6F6C64"],
+    title: "iPhone 15 pro in natural Titanium",
+    color: ["#8f8a81", "#ffe7b9", "#6f6c64"],
     img: yellowImg,
   });
-
-  // camera control for the model view
+  //camera view control
   const cameraControlSmall = useRef();
   const cameraControlLarge = useRef();
-
-  // model
+  //model
   const small = useRef(new THREE.Group());
   const large = useRef(new THREE.Group());
 
-  // rotation
+  //rotation
   const [smallRotation, setSmallRotation] = useState(0);
   const [largeRotation, setLargeRotation] = useState(0);
 
@@ -49,7 +45,10 @@ export const Model = () => {
   }, [size]);
 
   useGSAP(() => {
-    gsap.to("#heading", { y: 0, opacity: 1 });
+    gsap.to("#heading", {
+      opacity: 1,
+      y: 0,
+    });
   }, []);
 
   return (
@@ -58,7 +57,6 @@ export const Model = () => {
         <h1 id="heading" className="section-heading">
           Take a closer look.
         </h1>
-
         <div className="flex flex-col items-center mt-5">
           <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
             <ModelView
@@ -70,7 +68,6 @@ export const Model = () => {
               item={model}
               size={size}
             />
-
             <ModelView
               index={2}
               groupRef={large}
@@ -81,7 +78,7 @@ export const Model = () => {
               size={size}
             />
 
-            <Canvas
+            <canvas
               className="w-full h-full"
               style={{
                 position: "fixed",
@@ -94,15 +91,14 @@ export const Model = () => {
               eventSource={document.getElementById("root")}
             >
               <View.Port />
-            </Canvas>
+            </canvas>
           </div>
-
           <div className="mx-auto w-full">
-            <p className="text-sm font-light text-center mb-5">{model.title}</p>
+            <p className="text-center font-light text-sm mb-5">{model.title}</p>
 
             <div className="flex-center">
               <ul className="color-container">
-                {models.map((item, i) => (
+                {models.map((i, item) => (
                   <li
                     key={i}
                     className="w-6 h-6 rounded-full mx-2 cursor-pointer"
@@ -111,7 +107,6 @@ export const Model = () => {
                   />
                 ))}
               </ul>
-
               <button className="size-btn-container">
                 {sizes.map(({ label, value }) => (
                   <span
